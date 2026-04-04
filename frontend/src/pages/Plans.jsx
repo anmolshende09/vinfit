@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import API from "../config";
 
 const PLANS = [
   { id: "monthly", name: "Monthly", price: "₹499", duration: "30 days", amount: 49900 },
@@ -18,7 +19,7 @@ export default function Plans() {
     try {
       // 1. Create order from backend
       const res = await axios.post(
-        "http://localhost:5000/api/payments/create-order",
+        `${API}/api/payments/create-order`,
         { plan: plan.id },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -37,7 +38,7 @@ export default function Plans() {
           // 3. Verify payment on backend
           try {
             await axios.post(
-              "http://localhost:5000/api/payments/verify",
+              `${API}/api/payments/verify`,
               {
                 razorpayOrderId: response.razorpay_order_id,
                 razorpayPaymentId: response.razorpay_payment_id,

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import API from "../config";
 
 export default function MealTracker() {
   const { token } = useAuth();
@@ -21,7 +22,7 @@ export default function MealTracker() {
     const fetchData = async () => {
       try {
         const planRes = await axios.get(
-          "http://localhost:5000/api/meal-plan/me",
+          `${API}/api/meal-plan/me`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -31,7 +32,7 @@ export default function MealTracker() {
         setMealPlan(mealsArray);
 
         const mealRes = await axios.get(
-          "http://localhost:5000/api/meals/today",
+          `${API}/api/meals/today`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -68,7 +69,7 @@ export default function MealTracker() {
   const handleSave = async () => {
     try {
       await axios.post(
-        "http://localhost:5000/api/meals/log",
+        `${API}/api/meals/log`,
         log,
         {
           headers: { Authorization: `Bearer ${token}` },

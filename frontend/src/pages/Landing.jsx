@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import API from "../config";
 
 const features = [
   { icon: "🍽️", title: "Meal Tracking", desc: "Log breakfast, lunch, dinner and snacks daily. Build consistency one meal at a time." },

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import API from "../config";
 
 export default function Checkins() {
   const token = localStorage.getItem("token");
@@ -13,7 +14,7 @@ export default function Checkins() {
   // fetch history
   useEffect(() => {
     const fetchCheckins = async () => {
-      const res = await axios.get(`${API}/checkins/me`, {
+      const res = await axios.get(`${API}/api/checkins/me`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setHistory(res.data.checkins);
@@ -35,7 +36,7 @@ export default function Checkins() {
     setNotes("");
 
     // refresh
-    const res = await axios.get(`${API}/checkins/me`, {
+    const res = await axios.get(`${API}/api/checkins/me`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     setHistory(res.data.checkins);

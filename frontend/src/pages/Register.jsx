@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import API from "../config";
 
 export default function Register() {
   const [form, setForm] = useState({ name: "", email: "", password: "", role: "client" });
@@ -14,7 +15,7 @@ export default function Register() {
     setError("");
     setMessage("");
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/register", form);
+      const res = await axios.post(`${API}/api/auth/register`, form);
       setMessage(res.data.message);
     } catch (err) {
       setError(err.response?.data?.message || "Something went wrong");

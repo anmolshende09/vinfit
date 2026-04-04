@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import API from "../config";
 
 export default function TrainerDashboard() {
   const { token, user, logout } = useAuth();
@@ -21,7 +22,7 @@ export default function TrainerDashboard() {
   useEffect(() => {
     const fetchClients = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/trainer/dashboard", {
+        const res = await axios.get(`${API}/api/trainer/dashboard`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setClients(res.data.clients);
@@ -45,7 +46,7 @@ export default function TrainerDashboard() {
     const fetchPlan = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/api/meal-plan/me?userId=${selected._id}`,
+          `${API}/api/meal-plan/me?userId=${selected._id}`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
         setCurrentPlan(res.data.meals.join(", "));
@@ -59,7 +60,7 @@ export default function TrainerDashboard() {
     const fetchTodayMeals = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/api/trainer/client/${selected._id}/today`,
+          `${API}/api/trainer/client/${selected._id}/today`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
         setTodayMeals(res.data.meals || {});
@@ -79,7 +80,7 @@ export default function TrainerDashboard() {
     try {
       setSaving(true);
       await axios.post(
-        "http://localhost:5000/api/meal-plan",
+        `${API}/api/meal-plan`,
         {
           userId: selected._id,
           meals: (mealInput || currentPlan).split(",").map((m) => m.trim()).filter(Boolean),
@@ -99,7 +100,7 @@ export default function TrainerDashboard() {
     try {
       setSavingGoal(true);
       await axios.put(
-        `http://localhost:5000/api/trainer/client/${selected._id}/goal`,
+        `${API}/api/trainer/client/${selected._id}/goal`,
         { goal: goalInput },
         { headers: { Authorization: `Bearer ${token}` } }
       );

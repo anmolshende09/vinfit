@@ -2,6 +2,7 @@ import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import API from "../config";
 
 export default function Dashboard() {
   const { user, logout } = useAuth();
@@ -27,21 +28,21 @@ const [mealPlan, setMealPlan] = useState(null); // ✅ added
     const fetchData = async () => {
       try {
         const mealRes = await axios.get(
-          "http://localhost:5000/api/meals/today",
+          `${API}/api/meals/today`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
         );
 
         const checkinRes = await axios.get(
-          "http://localhost:5000/api/checkins/me",
+          `${API}/api/checkins/me`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
         );
 
         const planRes = await axios.get(
-               "http://localhost:5000/api/meal-plan/me",
+               `${API}/api/meal-plan/me`,
                {
                  headers: { Authorization: `Bearer ${token}` },
                }

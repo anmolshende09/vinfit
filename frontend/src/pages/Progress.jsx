@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import API from "../config";
 
 export default function Progress() {
   const { token } = useAuth();
@@ -13,7 +14,7 @@ export default function Progress() {
     const fetch = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:5000/api/progress/summary",
+          `${API}/api/progress/summary`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
