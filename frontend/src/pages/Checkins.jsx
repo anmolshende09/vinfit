@@ -9,8 +9,6 @@ export default function Checkins() {
   const [notes, setNotes] = useState("");
   const [history, setHistory] = useState([]);
 
-  const API = "http://localhost:5000/api";
-
   // fetch history
   useEffect(() => {
     const fetchCheckins = async () => {
@@ -25,13 +23,12 @@ export default function Checkins() {
   // submit
   const handleSubmit = async () => {
     await axios.post(
-      `${API}/checkins`,
+      `${API}/api/checkins`,
       { weight, notes },
       { headers: { Authorization: `Bearer ${token}` } }
     );
 
     alert("Check-in saved");
-
     setWeight("");
     setNotes("");
 
@@ -80,7 +77,6 @@ export default function Checkins() {
   );
 }
 
-// 🌙 styles (same theme)
 const styles = {
   container: {
     minHeight: "100vh",
@@ -91,7 +87,6 @@ const styles = {
     padding: "1rem",
     color: "#fff",
   },
-
   card: {
     background: "#0f172a",
     borderRadius: "16px",
@@ -101,13 +96,11 @@ const styles = {
     boxShadow: "0 4px 25px rgba(0,0,0,0.6)",
     border: "1px solid #22c55e",
   },
-
   title: {
     textAlign: "center",
     marginBottom: "1rem",
     color: "#22c55e",
   },
-
   input: {
     width: "100%",
     padding: "0.75rem",
@@ -117,7 +110,6 @@ const styles = {
     background: "#020617",
     color: "#fff",
   },
-
   textarea: {
     width: "100%",
     padding: "0.75rem",
@@ -127,7 +119,6 @@ const styles = {
     background: "#020617",
     color: "#fff",
   },
-
   button: {
     width: "100%",
     padding: "0.75rem",
@@ -139,12 +130,10 @@ const styles = {
     cursor: "pointer",
     marginBottom: "1rem",
   },
-
   subTitle: {
     marginTop: "1rem",
     marginBottom: "0.5rem",
   },
-
   historyItem: {
     background: "#020617",
     border: "1px solid #1e293b",
